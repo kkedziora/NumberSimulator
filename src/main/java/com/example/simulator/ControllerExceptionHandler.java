@@ -18,6 +18,12 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
                 .body(new ErrorResponse(exc.getMessage()));
     }
 
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<ErrorResponse> handleIllegalArgumentException(Exception exc, WebRequest request) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(new ErrorResponse(exc.getMessage()));
+    }
+
     @ExceptionHandler(ConversionFailedException.class)
     public ResponseEntity<ErrorResponse> handleConflict(Exception exc, WebRequest request) {
         return ResponseEntity.badRequest().body(new ErrorResponse(exc.getMessage()));

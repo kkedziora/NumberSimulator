@@ -1,6 +1,7 @@
 package com.example.simulator.source.number.integer;
 
 import com.example.simulator.operation.OperationException;
+import com.example.simulator.source.SourceType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,13 +22,18 @@ public class WebRandomIntegerSource implements IntegerSource {
     }
 
     @Override
-    public Integer getNumber() {
+    public Integer getValue() {
         ResponseEntity<String> response = restTemplate.getForEntity(urlIntegerGenerator, String.class);
         validateResponse(response);
 
         String body = response.getBody();
         String number = body.replaceAll("\\s+", "");
         return Integer.valueOf(number);
+    }
+
+    @Override
+    public SourceType getSource() {
+        return SourceType.WEB;
     }
 
     private void validateResponse(ResponseEntity<String> response) {

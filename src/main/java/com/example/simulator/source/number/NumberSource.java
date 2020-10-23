@@ -1,6 +1,7 @@
 package com.example.simulator.source.number;
 
-public interface NumberSource<T extends Number> {
+import com.example.simulator.source.Source;
 
-    T getNumber();
+public interface NumberSource<T extends Number> extends Source<T> {
+
 }

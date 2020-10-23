@@ -1,5 +1,6 @@
 package com.example.simulator.source.number.integer;
 
+import com.example.simulator.source.SourceType;
 import org.springframework.stereotype.Component;
 
 import java.security.SecureRandom;
@@ -15,7 +16,12 @@ public class RandomIntegerSource implements IntegerSource {
     }
 
     @Override
-    public Integer getNumber() {
+    public Integer getValue() {
         return secureRandom.nextInt();
+    }
+
+    @Override
+    public SourceType getSource() {
+        return SourceType.SYSTEM;
     }
 }

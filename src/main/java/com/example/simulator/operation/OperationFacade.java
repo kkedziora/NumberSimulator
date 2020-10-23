@@ -15,7 +15,7 @@ public class OperationFacade {
         this.integerOperationService = integerOperationService;
     }
 
-    public Integer getIntResult(OperationType operationType) {
-        return integerOperationService.getResult(operationType);
+    public Integer getIntResult(CalculationParams calculationParams) {
+        return integerOperationService.getResult(calculationParams);
     }
 }

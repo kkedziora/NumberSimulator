@@ -1,5 +1,6 @@
 package com.example.simulator;
 
+import com.example.simulator.source.SourceType;
 import com.example.simulator.source.number.integer.RandomIntegerSource;
 import com.example.simulator.source.number.integer.WebRandomIntegerSource;
 import org.junit.jupiter.api.Test;
@@ -33,10 +34,12 @@ public class OperationFacadeIntegrationTest {
 
     @Test
     void test_expectedSuccess() throws Exception {
-        when(webRandomIntegerSource.getNumber()).thenReturn(99);
-        when(randomIntegerSource.getNumber()).thenReturn(101);
+        when(webRandomIntegerSource.getSource()).thenReturn(SourceType.WEB);
+        when(randomIntegerSource.getSource()).thenReturn(SourceType.SYSTEM);
+        when(webRandomIntegerSource.getValue()).thenReturn(99);
+        when(randomIntegerSource.getValue()).thenReturn(101);
 
-        this.mockMvc.perform(get(API + "/integers?operationType=ADDITION"))
+        this.mockMvc.perform(get(API + "/integers?operationType=ADDITION&sources=WEB&sources=SYSTEM"))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().string("200"));

@@ -20,12 +20,13 @@ gradlew bootRun
 Application running on default port 8090
 
 #### REST Api
-GET http://localhost:8090/api/number-operations/results/integers?operationType=?
+GET http://localhost:8090/api/number-operations/results/integers?operationType=?&sources=?
 
 Using parameter you can configure:
 operationType - type of operation [ ADDITION, SUBTRACTION ]
+sources - list of sources [ SYSTEM, WEB ]
 
 Example:
-GET http://localhost8090/api/number-operations/results/integers?operationType=ADDITION
+GET http://localhost8090/api/number-operations/results/integers?operationType=ADDITION&sources=WEB&sources=SYSTEM
 
 That will return result of adding integer numbers

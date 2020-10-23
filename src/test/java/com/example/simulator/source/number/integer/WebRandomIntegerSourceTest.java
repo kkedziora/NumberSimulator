@@ -42,7 +42,7 @@ class WebRandomIntegerSourceTest {
         ResponseEntity<String> response = ResponseEntity.ok(returnValue);
         when(restTemplate.getForEntity(anyString(), eq(String.class))).thenReturn(response);
 
-        Integer result = webRandomIntegerSource.getNumber();
+        Integer result = webRandomIntegerSource.getValue();
 
         assertThat(result).isEqualTo(expectedResult);
     }
@@ -53,7 +53,7 @@ class WebRandomIntegerSourceTest {
         when(restTemplate.getForEntity(anyString(), eq(String.class))).thenReturn(response);
 
         assertThatExceptionOfType(OperationException.class)
-                .isThrownBy(() -> webRandomIntegerSource.getNumber());
+                .isThrownBy(() -> webRandomIntegerSource.getValue());
 
     }
 }

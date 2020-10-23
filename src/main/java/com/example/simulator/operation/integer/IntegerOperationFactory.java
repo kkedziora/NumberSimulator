@@ -1,26 +1,27 @@
 package com.example.simulator.operation.integer;
 
-import com.example.simulator.operation.ArithmeticOperation;
+import com.example.simulator.operation.ArithmeticComputation;
 import com.example.simulator.operation.OperationException;
 import com.example.simulator.operation.OperationType;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
-import java.util.EnumMap;
-import java.util.Map;
+import java.util.List;
 
+@Component
 public class IntegerOperationFactory {
 
-    private static final Map<OperationType, ArithmeticOperation<Integer>> operationMap = new EnumMap<>(OperationType.class);
+    private final List<ArithmeticComputation<Integer>> operations;
 
-    static {
-        operationMap.put(OperationType.ADDITION, new AddIntegerOperation());
-        operationMap.put(OperationType.SUBTRACTION, new SubtractIntegerOperation());
+    @Autowired
+    public IntegerOperationFactory(List<ArithmeticComputation<Integer>> operations) {
+        this.operations = operations;
     }
 
-    public static ArithmeticOperation<Integer> getCalculationFor(OperationType operationType) {
-        ArithmeticOperation<Integer> arithmeticOperation = operationMap.get(operationType);
-        if (arithmeticOperation != null) {
-            return arithmeticOperation;
-        }
-        throw new OperationException("Operation not supported " + operationType);
+    public ArithmeticComputation<Integer> getCalculationFor(OperationType operationType) {
+        return operations.stream()
+                .filter(integerOperation -> integerOperation.getType().equals(operationType))
+                .findFirst()
+                .orElseThrow(() -> new OperationException("Operation not supported " + operationType));
     }
 }
