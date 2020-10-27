@@ -1,6 +1,6 @@
 package com.example.simulator.operation;
 
-public interface Operation<T> {
+public interface Operation {
 
-    T getResult(CalculationParams calculationParams);
+    GeneratedValue getResult(ComputationParams computationParams);
 }

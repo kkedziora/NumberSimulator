@@ -1,8 +1,10 @@
 package com.example.simulator.source;
 
-public interface Source<T> {
+import com.example.simulator.operation.GeneratedValue;
 
-    T getValue();
+public interface Source {
+
+    GeneratedValue getValue();
 
     SourceType getSource();
 }

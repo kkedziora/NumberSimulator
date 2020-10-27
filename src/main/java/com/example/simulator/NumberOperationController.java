@@ -1,7 +1,8 @@
 package com.example.simulator;
 
-import com.example.simulator.operation.CalculationParams;
-import com.example.simulator.operation.OperationFacade;
+import com.example.simulator.operation.ComputationParams;
+import com.example.simulator.operation.GeneratedValue;
+import com.example.simulator.operation.Operation;
 import com.example.simulator.operation.OperationType;
 import com.example.simulator.source.SourceType;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,11 +18,11 @@ import java.util.Set;
 @RequestMapping(value = "/api/number-operations/results")
 class NumberOperationController {
 
-    private final OperationFacade randomOperationFacade;
+    private final Operation operation;
 
     @Autowired
-    public NumberOperationController(OperationFacade randomOperationFacade) {
-        this.randomOperationFacade = randomOperationFacade;
+    public NumberOperationController(Operation operation) {
+        this.operation = operation;
     }
 
     @GetMapping("/integers")
@@ -29,8 +30,8 @@ class NumberOperationController {
                                              @RequestParam("sources") Set<SourceType> sources) {
 
 
-        CalculationParams calculationParams = new CalculationParams(operationType, sources);
-        Integer result = randomOperationFacade.getIntResult(calculationParams);
-        return ResponseEntity.ok(result);
+        ComputationParams computationParams = new ComputationParams(operationType, sources);
+        GeneratedValue result = operation.getResult(computationParams);
+        return ResponseEntity.ok(result.asNumber());
     }
 }

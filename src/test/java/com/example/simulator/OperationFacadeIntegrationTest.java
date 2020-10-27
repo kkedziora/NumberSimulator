@@ -1,8 +1,9 @@
 package com.example.simulator;
 
+import com.example.simulator.operation.GeneratedValue;
 import com.example.simulator.source.SourceType;
-import com.example.simulator.source.number.integer.RandomIntegerSource;
-import com.example.simulator.source.number.integer.WebRandomIntegerSource;
+import com.example.simulator.source.number.RandomIntegerSource;
+import com.example.simulator.source.number.WebRandomIntegerSource;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,8 +37,8 @@ public class OperationFacadeIntegrationTest {
     void test_expectedSuccess() throws Exception {
         when(webRandomIntegerSource.getSource()).thenReturn(SourceType.WEB);
         when(randomIntegerSource.getSource()).thenReturn(SourceType.SYSTEM);
-        when(webRandomIntegerSource.getValue()).thenReturn(99);
-        when(randomIntegerSource.getValue()).thenReturn(101);
+        when(webRandomIntegerSource.getValue()).thenReturn(new GeneratedValue(99));
+        when(randomIntegerSource.getValue()).thenReturn(new GeneratedValue(101));
 
         this.mockMvc.perform(get(API + "/integers?operationType=ADDITION&sources=WEB&sources=SYSTEM"))
                 .andDo(print())

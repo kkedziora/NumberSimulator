@@ -1,6 +1,8 @@
 package com.example.simulator.source.number.integer;
 
+import com.example.simulator.operation.GeneratedValue;
 import com.example.simulator.operation.OperationException;
+import com.example.simulator.source.number.WebRandomIntegerSource;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -42,9 +44,9 @@ class WebRandomIntegerSourceTest {
         ResponseEntity<String> response = ResponseEntity.ok(returnValue);
         when(restTemplate.getForEntity(anyString(), eq(String.class))).thenReturn(response);
 
-        Integer result = webRandomIntegerSource.getValue();
+        GeneratedValue result = webRandomIntegerSource.getValue();
 
-        assertThat(result).isEqualTo(expectedResult);
+        assertThat(result.asNumber()).isEqualTo(expectedResult);
     }
 
     @Test

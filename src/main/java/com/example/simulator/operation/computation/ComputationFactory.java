@@ -1,6 +1,5 @@
-package com.example.simulator.operation.integer;
+package com.example.simulator.operation.computation;
 
-import com.example.simulator.operation.ArithmeticComputation;
 import com.example.simulator.operation.OperationException;
 import com.example.simulator.operation.OperationType;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,18 +8,18 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 @Component
-public class IntegerOperationFactory {
+public class ComputationFactory {
 
-    private final List<ArithmeticComputation<Integer>> operations;
+    private final List<Computation> operations;
 
     @Autowired
-    public IntegerOperationFactory(List<ArithmeticComputation<Integer>> operations) {
+    public ComputationFactory(List<Computation> operations) {
         this.operations = operations;
     }
 
-    public ArithmeticComputation<Integer> getCalculationFor(OperationType operationType) {
+    public Computation getComputation(OperationType operationType) {
         return operations.stream()
-                .filter(integerOperation -> integerOperation.getType().equals(operationType))
+                .filter(operation -> operation.getType().equals(operationType))
                 .findFirst()
                 .orElseThrow(() -> new OperationException("Operation not supported " + operationType));
     }

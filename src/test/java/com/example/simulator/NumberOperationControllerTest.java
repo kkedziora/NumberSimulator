@@ -1,7 +1,8 @@
 package com.example.simulator;
 
-import com.example.simulator.operation.CalculationParams;
-import com.example.simulator.operation.OperationFacade;
+import com.example.simulator.operation.ComputationParams;
+import com.example.simulator.operation.GeneratedValue;
+import com.example.simulator.operation.OperationService;
 import com.example.simulator.operation.OperationType;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -31,12 +32,12 @@ class NumberOperationControllerTest {
     private MockMvc mockMvc;
 
     @MockBean
-    private OperationFacade operationFacade;
+    private OperationService operationService;
 
     @Test
     void testIntegerAddition_expectedSuccess() throws Exception {
-        CalculationParams calculationParams = new CalculationParams(OperationType.ADDITION, Sets.newSet(WEB, SYSTEM));
-        when(operationFacade.getIntResult(calculationParams)).thenReturn(101);
+        ComputationParams computationParams = new ComputationParams(OperationType.ADDITION, Sets.newSet(WEB, SYSTEM));
+        when(operationService.getResult(computationParams)).thenReturn(new GeneratedValue(101));
 
         this.mockMvc.perform(get(API + "/integers?operationType=ADDITION&sources=WEB&sources=SYSTEM"))
                 .andDo(print())

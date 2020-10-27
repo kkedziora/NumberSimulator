@@ -1,6 +1,6 @@
-package com.example.simulator.operation.integer;
+package com.example.simulator.operation.computation;
 
-import com.example.simulator.operation.ArithmeticComputation;
+import com.example.simulator.operation.GeneratedValue;
 import com.example.simulator.operation.OperationException;
 import com.example.simulator.operation.OperationType;
 import org.springframework.stereotype.Component;
@@ -8,12 +8,14 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 @Component
-class AddIntegerComputation implements ArithmeticComputation<Integer> {
+class AddComputation implements Computation {
 
     @Override
-    public Integer calculate(List<Integer> values) {
+    public GeneratedValue calculate(List<GeneratedValue> values) {
         return values.stream()
+                .map(GeneratedValue::asNumber)
                 .reduce(Integer::sum)
+                .map(GeneratedValue::new)
                 .orElseThrow(() -> new OperationException("Cannot add values"));
     }
 

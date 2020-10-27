@@ -1,6 +1,8 @@
-package com.example.simulator.source.number.integer;
+package com.example.simulator.source.number;
 
+import com.example.simulator.operation.GeneratedValue;
 import com.example.simulator.operation.OperationException;
+import com.example.simulator.source.Source;
 import com.example.simulator.source.SourceType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -10,7 +12,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.client.RestTemplate;
 
 @Component
-public class WebRandomIntegerSource implements IntegerSource {
+public class WebRandomIntegerSource implements Source {
 
     private static final String urlIntegerGenerator = "https://www.random.org/integers/?num=1&min=-10000&max=10000&col=1&base=10&format=plain&rnd=new";
 
@@ -22,13 +24,13 @@ public class WebRandomIntegerSource implements IntegerSource {
     }
 
     @Override
-    public Integer getValue() {
+    public GeneratedValue getValue() {
         ResponseEntity<String> response = restTemplate.getForEntity(urlIntegerGenerator, String.class);
         validateResponse(response);
 
         String body = response.getBody();
         String number = body.replaceAll("\\s+", "");
-        return Integer.valueOf(number);
+        return new GeneratedValue(Integer.valueOf(number));
     }
 
     @Override

@@ -6,12 +6,12 @@ import java.util.Objects;
 import java.util.Set;
 
 
-public class CalculationParams {
+public class ComputationParams {
 
     private final OperationType operationType;
     private final Set<SourceType> allowedSources;
 
-    public CalculationParams(OperationType operationType, Set<SourceType> allowedSources) {
+    public ComputationParams(OperationType operationType, Set<SourceType> allowedSources) {
         if (allowedSources.size() < 2) {
             throw new IllegalArgumentException("Illegal number of sources");
         }
@@ -31,7 +31,7 @@ public class CalculationParams {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        CalculationParams that = (CalculationParams) o;
+        ComputationParams that = (ComputationParams) o;
         return operationType == that.operationType &&
                 Objects.equals(allowedSources, that.allowedSources);
     }

@@ -1,5 +1,7 @@
-package com.example.simulator.source.number.integer;
+package com.example.simulator.source.number;
 
+import com.example.simulator.operation.GeneratedValue;
+import com.example.simulator.source.Source;
 import com.example.simulator.source.SourceType;
 import org.springframework.stereotype.Component;
 
@@ -7,7 +9,7 @@ import java.security.SecureRandom;
 
 
 @Component
-public class RandomIntegerSource implements IntegerSource {
+public class RandomIntegerSource implements Source {
 
     private final SecureRandom secureRandom;
 
@@ -16,8 +18,9 @@ public class RandomIntegerSource implements IntegerSource {
     }
 
     @Override
-    public Integer getValue() {
-        return secureRandom.nextInt();
+    public GeneratedValue getValue() {
+        int randomValue = secureRandom.nextInt();
+        return new GeneratedValue(randomValue);
     }
 
     @Override
