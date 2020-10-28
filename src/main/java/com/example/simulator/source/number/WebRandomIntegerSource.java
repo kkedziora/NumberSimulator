@@ -30,7 +30,7 @@ public class WebRandomIntegerSource implements Source {
 
         String body = response.getBody();
         String number = body.replaceAll("\\s+", "");
-        return new GeneratedValue(Integer.valueOf(number));
+        return new GeneratedValue(number);
     }
 
     @Override

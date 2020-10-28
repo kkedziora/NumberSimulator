@@ -18,7 +18,7 @@ public final class GeneratedValue {
         if (this.value.matches("-?\\d+")) {
             return Integer.valueOf(this.value);
         }
-        throw new OperationException("Cannot convert value " + this.value + " to integer");
+        throw new OperationException("Cannot convert value " + this.value + " to number");
     }
 
     public String asString() {
